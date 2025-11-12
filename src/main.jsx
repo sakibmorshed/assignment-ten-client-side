@@ -15,6 +15,7 @@ import PrivateRoute from "./Pages/PrivateRoute.jsx";
 import AddHabit from "./Features/Habits/AddHabit.jsx";
 import MyHabits from "./Features/Habits/MyHabits.jsx";
 import HabitDetails from "./Features/Habits/HabitDetails.jsx";
+import UpdateHabit from "./Features/Habits/UpdateHabit.jsx";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,16 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <HabitDetails />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/allHabits/${params.id}`),
+      },
+      {
+        path: "updateHabit/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateHabit />
           </PrivateRoute>
         ),
         loader: ({ params }) =>

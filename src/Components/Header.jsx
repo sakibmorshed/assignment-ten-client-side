@@ -54,6 +54,12 @@ const Header = () => {
               >
                 My Habits
               </NavLink>
+              <NavLink
+                className="hover:text-[#2f9e9c] hover:border-b border-b-purple-600"
+                to={`updateHabit/${user.uid}`}
+              >
+                Update-habit
+              </NavLink>
             </div>
           )}
         </ul>
@@ -70,7 +76,7 @@ const Header = () => {
         </div>
       ) : (
         <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-circle avatar">
+          <div tabIndex={0} role="button" className=" btn-circle avatar">
             <div className="w-10 rounded-full">
               <img
                 src={user.photoURL || "/profile.webp"}

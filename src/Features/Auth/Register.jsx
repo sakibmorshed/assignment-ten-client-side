@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../Context/AuthContext";
 import { useContext } from "react";
+import { updateProfile } from "firebase/auth";
+import { auth } from "../../firebase/firebase.init";
 
 const Register = () => {
   const [passError, setPassError] = useState(false);
@@ -23,6 +25,8 @@ const Register = () => {
   };
   const handleRegister = (e) => {
     e.preventDefault();
+    const name = e.target.name.value;
+    const photoURL = e.target.photoURL.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
 
@@ -39,6 +43,10 @@ const Register = () => {
     }
     createUser(email, password)
       .then(() => {
+        updateProfile(auth.currentUser, {
+          displayName: name,
+          photoURL: photoURL,
+        });
         toast.success("successfully Signup"), e.target.reset();
         navigate("/");
       })

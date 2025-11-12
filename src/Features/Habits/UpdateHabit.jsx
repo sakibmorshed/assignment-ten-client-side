@@ -1,56 +1,17 @@
 import React, { useContext } from "react";
-import { toast } from "react-toastify";
 import { AuthContext } from "../../Context/AuthContext";
+import { useLoaderData } from "react-router";
 
-const AddHabit = () => {
+const UpdateHabit = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
-  const addHabit = (e) => {
-    e.preventDefault();
-
-    const habitTitle = e.target.habitTitle.value;
-    const description = e.target.description.value;
-    const category = e.target.category.value;
-    const reminderTime = e.target.reminderTime.value;
-    const userEmail = e.target.userEmail.value;
-    const userName = e.target.userName.value;
-    const image = e.target.image.value;
-
-    const formData = {
-      habitTitle,
-      description,
-      category,
-      reminderTime,
-      userEmail,
-      userName,
-      image,
-    };
-
-    fetch("http://localhost:3000/allHabits", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        toast.success("Successfully added habit !");
-        e.target.reset();
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
+  const data = useLoaderData();
+  console.log(data);
   return (
     <>
       <div className="max-w-7xl mx-auto min-h-screen">
         <h2 className="text-2xl font-bold text-center pt-10">Add New Habit</h2>
 
-        <form
-          onSubmit={addHabit}
-          className="card card-body bg-base-100 w-[500px] p-8 mx-auto my-10  max-w-md shrink-0 shadow-2xl"
-        >
+        <form className="card card-body bg-base-100 w-[500px] p-8 mx-auto my-10  max-w-md shrink-0 shadow-2xl">
           <fieldset className="fieldset">
             <label className="label">Habit Title</label>
             <input
@@ -126,4 +87,4 @@ const AddHabit = () => {
   );
 };
 
-export default AddHabit;
+export default UpdateHabit;
