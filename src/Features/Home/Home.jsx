@@ -12,9 +12,9 @@ import { motion, useReducedMotion } from "framer-motion";
 import LatestHabits from "../../Components/LatestHabits";
 import { Typewriter } from "react-simple-typewriter";
 
-const latestHabitsPromise = fetch("http://localhost:3000/latestHabits").then(
-  (res) => res.json()
-);
+const latestHabitsPromise = fetch(
+  "https://habit-server-app.vercel.app/latestHabits"
+).then((res) => res.json());
 
 //framer motion
 

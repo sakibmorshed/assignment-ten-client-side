@@ -26,7 +26,7 @@ const AddHabit = () => {
       image,
     };
 
-    fetch("http://localhost:3000/allHabits", {
+    fetch("https://habit-server-app.vercel.app/allHabits", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

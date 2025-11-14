@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       {
         path: "browsePublic",
         element: <BrowsePublic />,
-        loader: () => fetch("http://localhost:3000/allHabits"),
+        loader: () => fetch("https://habit-server-app.vercel.app/allHabits"),
       },
       {
         path: "register",
@@ -63,7 +63,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/allHabits/${params.id}`),
+          fetch(`https://habit-server-app.vercel.app/allHabits/${params.id}`),
       },
       {
         path: "updateHabit/:id",
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/allHabits/${params.id}`),
+          fetch(`https://habit-server-app.vercel.app/allHabits/${params.id}`),
       },
     ],
   },

@@ -9,7 +9,7 @@ const MyHabits = () => {
   const [myHabits, setMyHabits] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch(`http://localhost:3000/myHabits?email=${user.email}`)
+    fetch(`https://habit-server-app.vercel.app/myHabits?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setMyHabits(data);
@@ -37,7 +37,7 @@ const MyHabits = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/allHabits/${id}`, {
+        fetch(`https://habit-server-app.vercel.app/allHabits/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const MyHabits = () => {
                 <tr key={habit._id}>
                   <td className="font-semibold p-3">{habit.habitTitle}</td>
                   <td>{habit.category}</td>
-                  {/* <td>{computeCurrentStreak(habit.completionHistory)}</td> */}
+
                   <td>Current streak</td>
                   <td>
                     {habit.createdAt
@@ -107,10 +107,7 @@ const MyHabits = () => {
                       Delete
                     </button>
 
-                    <button
-                      // onClick={() => handleMarkComplete(habit._id)}
-                      className="btn btn-xs sm:btn-sm btn-success text-white"
-                    >
+                    <button className="btn btn-xs sm:btn-sm btn-success text-white">
                       Mark Complete
                     </button>
                   </td>

@@ -28,7 +28,7 @@ const UpdateHabit = () => {
       image,
     };
 
-    fetch(`http://localhost:3000/allHabits/${data._id}`, {
+    fetch(`https://habit-server-app.vercel.app/allHabits/${data._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
