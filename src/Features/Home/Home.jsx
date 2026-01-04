@@ -11,6 +11,7 @@ import {
 import { motion, useReducedMotion } from "framer-motion";
 import LatestHabits from "../../Components/LatestHabits";
 import { Typewriter } from "react-simple-typewriter";
+import Container from "../../Components/Container/Container";
 
 const latestHabitsPromise = fetch(
   "https://habit-server-app.vercel.app/latestHabits"
@@ -41,7 +42,7 @@ const Home = () => {
   const shouldReduce = useReducedMotion();
   return (
     <>
-      <div className=" max-w-7xl mx-auto">
+      <Container>
         <div className="text-center my-10">
           <h1 className="text-4xl font-bold">
             Build Better Habits With{" "}
@@ -329,7 +330,7 @@ const Home = () => {
         </section>
 
         {/* Success stories end */}
-      </div>
+      </Container>
     </>
   );
 };
