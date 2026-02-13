@@ -24,11 +24,6 @@ const DashboardLayout = () => {
             icon={<ListTodo size={18} />}
             label="My Habits"
           />
-          <SidebarLink
-            to="/dashboard/profile"
-            icon={<User size={18} />}
-            label="Profile"
-          />
         </nav>
       </aside>
 

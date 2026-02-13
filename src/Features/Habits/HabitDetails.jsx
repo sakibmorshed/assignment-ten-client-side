@@ -34,9 +34,9 @@ const HabitDetails = () => {
       className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100"
     >
       <div className="max-w-7xl mx-auto px-4 py-12 space-y-20">
-        {/* ================= HERO ================= */}
+        
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Images */}
+         
           <motion.div
             variants={fadeUp}
             whileHover={{ scale: 1.02 }}
@@ -59,7 +59,7 @@ const HabitDetails = () => {
             </div>
           </motion.div>
 
-          {/* Text */}
+         
           <motion.div variants={fadeUp} className="space-y-6">
             <div className="flex gap-3">
               <span className="px-4 py-1 rounded-full text-sm bg-black text-white">
@@ -74,7 +74,7 @@ const HabitDetails = () => {
 
             <p className="text-gray-600 leading-relaxed">{data.description}</p>
 
-            {/* Progress */}
+           
             <div className="space-y-2">
               <div className="flex justify-between text-sm font-medium">
                 <span>30 Day Progress</span>
@@ -89,7 +89,7 @@ const HabitDetails = () => {
               </Progress.Root>
             </div>
 
-            {/* Button */}
+           
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
@@ -103,7 +103,7 @@ const HabitDetails = () => {
           </motion.div>
         </section>
 
-        {/* ================= INFO ================= */}
+        
         <section className="grid md:grid-cols-3 gap-6">
           {[
             { title: "Duration", value: "30 Days" },
@@ -121,7 +121,7 @@ const HabitDetails = () => {
           ))}
         </section>
 
-        {/* ================= REVIEWS ================= */}
+        
         <section className="space-y-6">
           <h2 className="text-2xl font-semibold">User Feedback</h2>
 
@@ -145,7 +145,7 @@ const HabitDetails = () => {
           </div>
         </section>
 
-        {/* ================= RELATED ================= */}
+       
         <section className="space-y-6">
           <h2 className="text-2xl font-semibold">You May Also Like</h2>
 

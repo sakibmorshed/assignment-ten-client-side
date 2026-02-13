@@ -21,7 +21,6 @@ import { Toaster } from "react-hot-toast";
 import Contact from "./Features/Contact/Contact.jsx";
 import DashboardLayout from "./Pages/DashboardLayout.jsx";
 import DashboardHome from "./Features/Habits/DasboardHome.jsx";
-import Profile from "./Features/Habits/Profile.jsx";
 
 <Toaster position="top-center" reverseOrder={false} />;
 
@@ -60,7 +59,7 @@ const router = createBrowserRouter([
         element: <DashboardLayout />,
         children: [
           { index: true, element: <DashboardHome /> },
-          { path: "profile", element: <Profile /> },
+
           { path: "addHabit", element: <AddHabit /> },
           { path: "myHabits", element: <MyHabits /> },
         ],

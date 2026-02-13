@@ -34,16 +34,16 @@ export default function Carousel() {
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
         onAutoplayTimeLeft={onAutoplayTimeLeft}
-        className="mySwiper"
+        className="mySwiper w-full"
       >
-        <SwiperSlide>
-          <img src="/slider7.webp" alt="" />
+        <SwiperSlide className="overflow-hidden">
+          <img src="/slider7.webp" alt="Habit tracking motivation" className="w-full h-full object-cover" />
         </SwiperSlide>
-        <SwiperSlide>
-          <img src="/slider2.jpg" alt="" />
+        <SwiperSlide className="overflow-hidden">
+          <img src="/slider2.jpg" alt="Daily habits" className="w-full h-full object-cover" />
         </SwiperSlide>
-        <SwiperSlide>
-          <img src="/slider5.jpg" alt="" />
+        <SwiperSlide className="overflow-hidden">
+          <img src="/slider5.jpg" alt="Goal achievement" className="w-full h-full object-cover" />
         </SwiperSlide>
 
         <div className="autoplay-progress" slot="container-end">
