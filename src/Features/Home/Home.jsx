@@ -59,6 +59,24 @@ const Home = () => {
   const successStoriesRef = useRef(null);
   const navigate = useNavigate();
 
+  const steps = [
+    {
+      number: 1,
+      title: "Set Your Goals",
+      desc: "Choose what habits you want to improve or track daily.",
+    },
+    {
+      number: 2,
+      title: "Track Progress",
+      desc: "Mark your habits every day and build streaks easily.",
+    },
+    {
+      number: 3,
+      title: "Stay Consistent",
+      desc: "Get reminders and stay motivated to never miss a day.",
+    },
+  ];
+
   useEffect(() => {
     // GSAP animations for table rows
     if (tableRef.current) {
@@ -506,82 +524,46 @@ const Home = () => {
             viewport={{ once: true }}
           >
             <div className="overflow-x-auto rounded-box border border-base-content/6 bg-base-100 my-10">
-              <table className="table" ref={tableRef}>
-                <motion.thead
-                  initial={{ opacity: 0, y: -20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                  viewport={{ once: true }}
-                >
-                  <tr className="border-b-cyan-300">
+              <table className="table border-collapse w-full" ref={tableRef}>
+                {/* thead hidden on mobile */}
+                <thead className="hidden md:table-header-group">
+                  <tr>
                     <th>Step</th>
                     <th>Title</th>
                     <th>Short Description</th>
                   </tr>
-                </motion.thead>
-                <tbody>
-                  <motion.tr
-                    className="border-b-cyan-300 hover:border-amber-400 cursor-pointer"
-                    whileHover={{
-                      backgroundColor: "#fef3c7",
-                      scale: 1.02,
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                    }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <motion.th
-                      whileHover={{ scale: 1.2, color: "#f59e0b" }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      1
-                    </motion.th>
-                    <td>Set Your Goals</td>
-                    <td>
-                      Choose what habits you want to improve or track daily.
-                    </td>
-                  </motion.tr>
+                </thead>
 
-                  <motion.tr
-                    className="border-b-cyan-300 hover:border-amber-400 cursor-pointer"
-                    whileHover={{
-                      backgroundColor: "#fef3c7",
-                      scale: 1.02,
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                    }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <motion.th
-                      whileHover={{ scale: 1.2, color: "#f59e0b" }}
-                      transition={{ duration: 0.2 }}
+                <tbody className="md:table-row-group block md:table">
+                  {steps.map((step, i) => (
+                    <motion.tr
+                      key={i}
+                      className={`
+                        block md:table-row 
+                        border-b border-base-300 last:border-none
+                        p-4 md:p-0 mb-4 md:mb-0 rounded-lg md:rounded-none
+                        bg-base-200/50 md:bg-transparent
+                        hover:bg-base-200/70 transition-colors
+                      `}
+                      whileHover={{
+                        scale: 1.02,
+                        transition: { duration: 0.2 },
+                      }}
                     >
-                      2
-                    </motion.th>
-                    <td>Track Progress</td>
-                    <td>
-                      Mark your habits every day and build streaks easily.
-                    </td>
-                  </motion.tr>
-
-                  <motion.tr
-                    className="border-b-cyan-300 hover:border-amber-400 cursor-pointer"
-                    whileHover={{
-                      backgroundColor: "#fef3c7",
-                      scale: 1.02,
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                    }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <motion.th
-                      whileHover={{ scale: 1.2, color: "#f59e0b" }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      3
-                    </motion.th>
-                    <td>Stay Consistent</td>
-                    <td>
-                      Get reminders and stay motivated to never miss a day.
-                    </td>
-                  </motion.tr>
+                      <motion.td
+                        className="block md:table-cell font-bold text-lg md:text-base pb-1 md:pb-0"
+                        whileHover={{ scale: 1.1, color: "#f59e0b" }}
+                      >
+                        Step {step.number}
+                      </motion.td>
+                      <td className="block md:table-cell font-semibold pb-1 md:pb-0">
+                        {step.title}
+                      </td>
+                      <td className="block md:table-cell text-sm opacity-80">
+                        {step.desc}
+                      </td>
+                    </motion.tr>
+                  ))}
                 </tbody>
               </table>
             </div>
