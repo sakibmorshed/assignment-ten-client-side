@@ -78,8 +78,13 @@ const Home = () => {
   ];
 
   useEffect(() => {
-    // GSAP animations for table rows
-    if (tableRef.current) {
+    // GSAP animations for table rows (run only on desktop to avoid conflicts on mobile)
+    if (
+      tableRef.current &&
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(min-width: 768px)").matches
+    ) {
       gsap.fromTo(
         tableRef.current.querySelectorAll("tbody tr"),
         { opacity: 0, x: -50 },
@@ -538,6 +543,10 @@ const Home = () => {
                   {steps.map((step, i) => (
                     <motion.tr
                       key={i}
+                      initial={{ opacity: 0, x: -12 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, amount: 0.2 }}
+                      transition={{ duration: 0.45, delay: i * 0.06 }}
                       className={`
                         block md:table-row 
                         border-b border-base-300 last:border-none
