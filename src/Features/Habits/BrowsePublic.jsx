@@ -22,11 +22,11 @@ const BrowsePublic = () => {
 
   const filteredHabits = data
     .filter((habit) =>
-      habit.habitTitle.toLowerCase().includes(searchText.toLowerCase())
+      habit.habitTitle.toLowerCase().includes(searchText.toLowerCase()),
     )
     .filter(
       (habit) =>
-        selectedCategory === "All" || habit.category === selectedCategory
+        selectedCategory === "All" || habit.category === selectedCategory,
     )
     .sort((a, b) => {
       if (sortBy === "title") {
@@ -39,7 +39,7 @@ const BrowsePublic = () => {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentHabits = filteredHabits.slice(
     startIndex,
-    startIndex + ITEMS_PER_PAGE
+    startIndex + ITEMS_PER_PAGE,
   );
 
   if (loading) {
@@ -56,10 +56,32 @@ const BrowsePublic = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
       <div className="max-w-7xl mx-auto px-4 py-12 space-y-12">
         <div className="text-center space-y-2">
-          <h2 className="text-4xl font-bold">Explore Public Habits</h2>
-          <p className="text-gray-600">
-            Discover habits shared by the community 🌱
-          </p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="text-center mb-20 md:mb-28"
+          >
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.9, ease: "easeOut" }}
+              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
+            >
+              Explore Public <span className="text-primary">Habits</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.9, delay: 0.3 }}
+              className="max-w-xl mx-auto text-sm sm:text-base opacity-80"
+            >
+              Discover habits shared by the community 🌱
+            </motion.p>
+          </motion.div>
         </div>
 
         <div className="grid md:grid-cols-4 gap-4 bg-white p-5 rounded-2xl shadow-sm">
