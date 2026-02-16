@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router";
 import Carousel from "../../Components/Carousel/Carousel";
 import {
   FaBrain,
@@ -7,6 +8,11 @@ import {
   FaQuoteLeft,
   FaSmileBeam,
   FaStar,
+  FaUsers,
+  FaFlag,
+  FaFire,
+  FaAward,
+  FaArrowRight,
 } from "react-icons/fa";
 import { motion, useReducedMotion } from "framer-motion";
 import LatestHabits from "../../Components/LatestHabits";
@@ -14,12 +20,17 @@ import { Typewriter } from "react-simple-typewriter";
 import Container from "../../Components/Container/Container";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { fadeInUp, staggerContainer, staggerItem, hoverLift } from "../../utils/animations";
+import {
+  fadeInUp,
+  staggerContainer,
+  staggerItem,
+  hoverLift,
+} from "../../utils/animations";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const latestHabitsPromise = fetch(
-  "https://habit-server-app.vercel.app/latestHabits"
+  "https://habit-server-app.vercel.app/latestHabits",
 ).then((res) => res.json());
 
 //framer motion
@@ -46,6 +57,7 @@ const Home = () => {
   const shouldReduce = useReducedMotion();
   const tableRef = useRef(null);
   const successStoriesRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // GSAP animations for table rows
@@ -63,9 +75,9 @@ const Home = () => {
             trigger: tableRef.current,
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse"
-          }
-        }
+            toggleActions: "play none none reverse",
+          },
+        },
       );
     }
 
@@ -85,9 +97,9 @@ const Home = () => {
             trigger: successStoriesRef.current,
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse"
-          }
-        }
+            toggleActions: "play none none reverse",
+          },
+        },
       );
     }
   }, []);
@@ -95,28 +107,42 @@ const Home = () => {
   return (
     <>
       <Container>
+        {/* Floating Background Elements */}
+        <motion.div
+          className="fixed top-20 right-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"
+          animate={{ y: [0, 50, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          style={{ pointerEvents: "none" }}
+        />
+        <motion.div
+          className="fixed -bottom-32 -left-32 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"
+          animate={{ y: [0, -50, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          style={{ pointerEvents: "none" }}
+        />
+
         {/* Hero Section with Enhanced Animations */}
-        <motion.div 
-          className="text-center my-10"
+        <motion.div
+          className="text-center my-10 relative z-10"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <motion.h1 
-            className="text-4xl font-bold"
+          <motion.h1
+            className="text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600"
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             Build Better Habits With{" "}
-            <motion.span 
-              className="text-primary"
-              animate={{ 
+            <motion.span
+              className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
+              animate={{
                 textShadow: [
-                  "0 0 0px #3b82f6",
-                  "0 0 10px #3b82f6",
-                  "0 0 0px #3b82f6"
-                ]
+                  "0 0 0px rgba(59, 130, 246, 0.5)",
+                  "0 0 20px rgba(59, 130, 246, 0.8)",
+                  "0 0 0px rgba(59, 130, 246, 0.5)",
+                ],
               }}
               transition={{ duration: 2, repeat: Infinity }}
             >
@@ -136,10 +162,21 @@ const Home = () => {
               />
             </motion.span>
           </motion.h1>
+
+          <motion.p
+            className="text-lg text-gray-600 mt-6 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            Transform your life one habit at a time with our intelligent
+            tracking system designed to help you stay consistent and achieve
+            your goals.
+          </motion.p>
         </motion.div>
 
         {/* Enhanced Slider Section */}
-        <motion.div 
+        <motion.div
           className="rounded-xl overflow-hidden shadow-lg my-10"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -150,14 +187,14 @@ const Home = () => {
         </motion.div>
 
         {/* Latest Habits Section with Animation */}
-        <motion.div 
+        <motion.div
           className="py-10"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <motion.h2 
+          <motion.h2
             className="text-xl font-bold text-center py-10"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -171,14 +208,14 @@ const Home = () => {
         </motion.div>
 
         {/* Enhanced Why Build Habit Section */}
-        <motion.div 
+        <motion.div
           className="py-10"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          <motion.h2 
+          <motion.h2
             className="text-xl font-bold text-center py-6"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -187,7 +224,7 @@ const Home = () => {
           >
             Why build Habit ?
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-center text-gray-600 mb-12 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -197,7 +234,7 @@ const Home = () => {
             Consistent habits shape who we become. Small daily actions lead to
             lasting focus, happiness, and personal success.
           </motion.p>
-          
+
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 px-6"
             variants={shouldReduce ? {} : containerVariants}
@@ -208,20 +245,24 @@ const Home = () => {
             <motion.div
               className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition"
               variants={shouldReduce ? {} : itemVariants}
-              whileHover={shouldReduce ? {} : { 
-                scale: 1.05, 
-                rotateY: 5,
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
-              }}
+              whileHover={
+                shouldReduce
+                  ? {}
+                  : {
+                      scale: 1.05,
+                      rotateY: 5,
+                      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+                    }
+              }
               transition={{ duration: 0.3 }}
             >
               <div className="card-body">
-                <motion.h2 
+                <motion.h2
                   className="card-title"
                   whileHover={{ color: "#3b82f6" }}
                 >
                   Better Focus
-                  <motion.div 
+                  <motion.div
                     className="badge badge-secondary"
                     whileHover={{ rotate: 360, scale: 1.2 }}
                     transition={{ duration: 0.5 }}
@@ -234,15 +275,23 @@ const Home = () => {
                   matters most and ignore distractions.
                 </p>
                 <div className="card-actions justify-end">
-                  <motion.div 
+                  <motion.div
                     className="badge badge-outline"
-                    whileHover={{ scale: 1.1, backgroundColor: "#3b82f6", color: "white" }}
+                    whileHover={{
+                      scale: 1.1,
+                      backgroundColor: "#3b82f6",
+                      color: "white",
+                    }}
                   >
                     Focus
                   </motion.div>
-                  <motion.div 
+                  <motion.div
                     className="badge badge-outline"
-                    whileHover={{ scale: 1.1, backgroundColor: "#10b981", color: "white" }}
+                    whileHover={{
+                      scale: 1.1,
+                      backgroundColor: "#10b981",
+                      color: "white",
+                    }}
                   >
                     Productive
                   </motion.div>
@@ -253,20 +302,24 @@ const Home = () => {
             <motion.div
               className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition"
               variants={shouldReduce ? {} : itemVariants}
-              whileHover={shouldReduce ? {} : { 
-                scale: 1.05, 
-                rotateY: 5,
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
-              }}
+              whileHover={
+                shouldReduce
+                  ? {}
+                  : {
+                      scale: 1.05,
+                      rotateY: 5,
+                      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+                    }
+              }
               transition={{ duration: 0.3 }}
             >
               <div className="card-body">
-                <motion.h2 
+                <motion.h2
                   className="card-title"
                   whileHover={{ color: "#8b5cf6" }}
                 >
                   Strong Mindset
-                  <motion.div 
+                  <motion.div
                     className="badge badge-secondary"
                     whileHover={{ rotate: 360, scale: 1.2 }}
                     transition={{ duration: 0.5 }}
@@ -279,15 +332,23 @@ const Home = () => {
                   positive even through tough times.
                 </p>
                 <div className="card-actions justify-end">
-                  <motion.div 
+                  <motion.div
                     className="badge badge-outline"
-                    whileHover={{ scale: 1.1, backgroundColor: "#8b5cf6", color: "white" }}
+                    whileHover={{
+                      scale: 1.1,
+                      backgroundColor: "#8b5cf6",
+                      color: "white",
+                    }}
                   >
                     Deep Work
                   </motion.div>
-                  <motion.div 
+                  <motion.div
                     className="badge badge-outline"
-                    whileHover={{ scale: 1.1, backgroundColor: "#f59e0b", color: "white" }}
+                    whileHover={{
+                      scale: 1.1,
+                      backgroundColor: "#f59e0b",
+                      color: "white",
+                    }}
                   >
                     Mono Task
                   </motion.div>
@@ -298,20 +359,24 @@ const Home = () => {
             <motion.div
               className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition"
               variants={shouldReduce ? {} : itemVariants}
-              whileHover={shouldReduce ? {} : { 
-                scale: 1.05, 
-                rotateY: 5,
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
-              }}
+              whileHover={
+                shouldReduce
+                  ? {}
+                  : {
+                      scale: 1.05,
+                      rotateY: 5,
+                      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+                    }
+              }
               transition={{ duration: 0.3 }}
             >
               <div className="card-body">
-                <motion.h2 
+                <motion.h2
                   className="card-title"
                   whileHover={{ color: "#f59e0b" }}
                 >
                   Reduced Stress
-                  <motion.div 
+                  <motion.div
                     className="badge badge-secondary"
                     whileHover={{ rotate: 360, scale: 1.2 }}
                     transition={{ duration: 0.5 }}
@@ -324,15 +389,23 @@ const Home = () => {
                   and boosts your mental calmness.
                 </p>
                 <div className="card-actions justify-end">
-                  <motion.div 
+                  <motion.div
                     className="badge badge-outline"
-                    whileHover={{ scale: 1.1, backgroundColor: "#06b6d4", color: "white" }}
+                    whileHover={{
+                      scale: 1.1,
+                      backgroundColor: "#06b6d4",
+                      color: "white",
+                    }}
                   >
                     Mindful
                   </motion.div>
-                  <motion.div 
+                  <motion.div
                     className="badge badge-outline"
-                    whileHover={{ scale: 1.1, backgroundColor: "#84cc16", color: "white" }}
+                    whileHover={{
+                      scale: 1.1,
+                      backgroundColor: "#84cc16",
+                      color: "white",
+                    }}
                   >
                     Prioritize
                   </motion.div>
@@ -343,20 +416,24 @@ const Home = () => {
             <motion.div
               className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition"
               variants={shouldReduce ? {} : itemVariants}
-              whileHover={shouldReduce ? {} : { 
-                scale: 1.05, 
-                rotateY: 5,
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
-              }}
+              whileHover={
+                shouldReduce
+                  ? {}
+                  : {
+                      scale: 1.05,
+                      rotateY: 5,
+                      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+                    }
+              }
               transition={{ duration: 0.3 }}
             >
               <div className="card-body">
-                <motion.h2 
+                <motion.h2
                   className="card-title"
                   whileHover={{ color: "#10b981" }}
                 >
                   Continuous Growth
-                  <motion.div 
+                  <motion.div
                     className="badge badge-secondary"
                     whileHover={{ rotate: 360, scale: 1.2 }}
                     transition={{ duration: 0.5 }}
@@ -370,15 +447,23 @@ const Home = () => {
                 </p>
 
                 <div className="card-actions justify-end">
-                  <motion.div 
+                  <motion.div
                     className="badge badge-outline"
-                    whileHover={{ scale: 1.1, backgroundColor: "#ef4444", color: "white" }}
+                    whileHover={{
+                      scale: 1.1,
+                      backgroundColor: "#ef4444",
+                      color: "white",
+                    }}
                   >
                     Pomodoro
                   </motion.div>
-                  <motion.div 
+                  <motion.div
                     className="badge badge-outline"
-                    whileHover={{ scale: 1.1, backgroundColor: "#8b5cf6", color: "white" }}
+                    whileHover={{
+                      scale: 1.1,
+                      backgroundColor: "#8b5cf6",
+                      color: "white",
+                    }}
                   >
                     Delegate
                   </motion.div>
@@ -395,7 +480,7 @@ const Home = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <motion.h2 
+          <motion.h2
             className="text-xl font-bold text-center py-6"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -404,7 +489,7 @@ const Home = () => {
           >
             "How It Works" – Step-by-Step Guide Section
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-center text-gray-600 mb-12 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -435,12 +520,12 @@ const Home = () => {
                   </tr>
                 </motion.thead>
                 <tbody>
-                  <motion.tr 
+                  <motion.tr
                     className="border-b-cyan-300 hover:border-amber-400 cursor-pointer"
-                    whileHover={{ 
-                      backgroundColor: "#fef3c7", 
+                    whileHover={{
+                      backgroundColor: "#fef3c7",
                       scale: 1.02,
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
                     }}
                     transition={{ duration: 0.2 }}
                   >
@@ -451,15 +536,17 @@ const Home = () => {
                       1
                     </motion.th>
                     <td>Set Your Goals</td>
-                    <td>Choose what habits you want to improve or track daily.</td>
+                    <td>
+                      Choose what habits you want to improve or track daily.
+                    </td>
                   </motion.tr>
-                  
-                  <motion.tr 
+
+                  <motion.tr
                     className="border-b-cyan-300 hover:border-amber-400 cursor-pointer"
-                    whileHover={{ 
-                      backgroundColor: "#fef3c7", 
+                    whileHover={{
+                      backgroundColor: "#fef3c7",
                       scale: 1.02,
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
                     }}
                     transition={{ duration: 0.2 }}
                   >
@@ -470,15 +557,17 @@ const Home = () => {
                       2
                     </motion.th>
                     <td>Track Progress</td>
-                    <td>Mark your habits every day and build streaks easily.</td>
+                    <td>
+                      Mark your habits every day and build streaks easily.
+                    </td>
                   </motion.tr>
-                  
-                  <motion.tr 
+
+                  <motion.tr
                     className="border-b-cyan-300 hover:border-amber-400 cursor-pointer"
-                    whileHover={{ 
-                      backgroundColor: "#fef3c7", 
+                    whileHover={{
+                      backgroundColor: "#fef3c7",
                       scale: 1.02,
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
                     }}
                     transition={{ duration: 0.2 }}
                   >
@@ -489,7 +578,9 @@ const Home = () => {
                       3
                     </motion.th>
                     <td>Stay Consistent</td>
-                    <td>Get reminders and stay motivated to never miss a day.</td>
+                    <td>
+                      Get reminders and stay motivated to never miss a day.
+                    </td>
                   </motion.tr>
                 </tbody>
               </table>
@@ -497,8 +588,165 @@ const Home = () => {
           </motion.div>
         </motion.div>
 
+        {/* Modern Statistics Section */}
+        <motion.div
+          className="py-16 my-12 rounded-3xl bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 border border-blue-100"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.h2
+            className="text-3xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            Join Our Growing Community
+          </motion.h2>
+          <motion.p
+            className="text-center text-gray-600 mb-12 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            Thousands of users are building consistency and achieving their
+            goals with our platform.
+          </motion.p>
+
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto px-6"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <motion.div
+              className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl border-l-4 border-blue-500"
+              variants={itemVariants}
+              whileHover={{ y: -5, scale: 1.05 }}
+            >
+              <motion.div
+                className="flex items-center justify-between mb-4"
+                whileHover={{ scale: 1.1 }}
+              >
+                <div>
+                  <p className="text-gray-600 text-sm">Active Users</p>
+                  <motion.h3
+                    className="text-3xl font-bold text-blue-600"
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  >
+                    10K+
+                  </motion.h3>
+                </div>
+                <motion.div
+                  className="text-4xl text-blue-200"
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                >
+                  <FaUsers />
+                </motion.div>
+              </motion.div>
+              <p className="text-gray-500 text-xs">Growing every day</p>
+            </motion.div>
+
+            <motion.div
+              className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl border-l-4 border-purple-500"
+              variants={itemVariants}
+              whileHover={{ y: -5, scale: 1.05 }}
+            >
+              <motion.div
+                className="flex items-center justify-between mb-4"
+                whileHover={{ scale: 1.1 }}
+              >
+                <div>
+                  <p className="text-gray-600 text-sm">Habits Tracked</p>
+                  <motion.h3
+                    className="text-3xl font-bold text-purple-600"
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, delay: 0.2 }}
+                  >
+                    50K+
+                  </motion.h3>
+                </div>
+                <motion.div
+                  className="text-4xl text-purple-200"
+                  animate={{ rotate: [0, -10, 10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, delay: 0.2 }}
+                >
+                  <FaFlag />
+                </motion.div>
+              </motion.div>
+              <p className="text-gray-500 text-xs">Successfully tracked</p>
+            </motion.div>
+
+            <motion.div
+              className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl border-l-4 border-orange-500"
+              variants={itemVariants}
+              whileHover={{ y: -5, scale: 1.05 }}
+            >
+              <motion.div
+                className="flex items-center justify-between mb-4"
+                whileHover={{ scale: 1.1 }}
+              >
+                <div>
+                  <p className="text-gray-600 text-sm">Current Streaks</p>
+                  <motion.h3
+                    className="text-3xl font-bold text-orange-600"
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, delay: 0.4 }}
+                  >
+                    100K+
+                  </motion.h3>
+                </div>
+                <motion.div
+                  className="text-4xl text-orange-200"
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: 0.4 }}
+                >
+                  <FaFire />
+                </motion.div>
+              </motion.div>
+              <p className="text-gray-500 text-xs">Active streaks maintained</p>
+            </motion.div>
+
+            <motion.div
+              className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl border-l-4 border-green-500"
+              variants={itemVariants}
+              whileHover={{ y: -5, scale: 1.05 }}
+            >
+              <motion.div
+                className="flex items-center justify-between mb-4"
+                whileHover={{ scale: 1.1 }}
+              >
+                <div>
+                  <p className="text-gray-600 text-sm">Goals Achieved</p>
+                  <motion.h3
+                    className="text-3xl font-bold text-green-600"
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, delay: 0.6 }}
+                  >
+                    25K+
+                  </motion.h3>
+                </div>
+                <motion.div
+                  className="text-4xl text-green-200"
+                  animate={{ rotate: [0, 20, -20, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, delay: 0.6 }}
+                >
+                  <FaAward />
+                </motion.div>
+              </motion.div>
+              <p className="text-gray-500 text-xs">Success stories</p>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+
         {/* Enhanced Success Stories Section */}
-        <motion.section 
+        <motion.section
           className="py-16 bg-gray-50 my-10 rounded-3xl"
           ref={successStoriesRef}
           initial={{ opacity: 0, scale: 0.95 }}
@@ -506,7 +754,7 @@ const Home = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true, amount: 0.2 }}
         >
-          <motion.h2 
+          <motion.h2
             className="text-2xl font-bold text-center text-gray-800 mb-4"
             initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -515,7 +763,7 @@ const Home = () => {
           >
             Success Stories
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-center text-gray-600 mb-12 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -528,13 +776,13 @@ const Home = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
             {/* Enhanced Card 1 */}
-            <motion.div 
+            <motion.div
               className="success-card bg-white p-9 rounded-3xl shadow-lg hover:shadow-2xl transition transform duration-300 relative"
-              whileHover={{ 
-                y: -10, 
+              whileHover={{
+                y: -10,
                 scale: 1.05,
                 rotateY: 5,
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
               }}
               whileTap={{ scale: 0.98 }}
             >
@@ -546,7 +794,7 @@ const Home = () => {
               >
                 <FaQuoteLeft className="absolute top-5 left-1 text-gray-200 text-3xl" />
               </motion.div>
-              <motion.p 
+              <motion.p
                 className="text-gray-700 mb-6"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -558,7 +806,7 @@ const Home = () => {
                 skyrocketed!
               </motion.p>
               <div className="flex items-center mt-4">
-                <motion.div 
+                <motion.div
                   className="flex items-center justify-center w-12 h-12 rounded-full bg-green-100 text-green-500 mr-4 text-xl"
                   whileHover={{ rotate: 360, scale: 1.2 }}
                   transition={{ duration: 0.5 }}
@@ -566,7 +814,7 @@ const Home = () => {
                   <FaStar />
                 </motion.div>
                 <div>
-                  <motion.h4 
+                  <motion.h4
                     className="text-lg font-semibold text-gray-800"
                     whileHover={{ color: "#10b981" }}
                   >
@@ -578,13 +826,13 @@ const Home = () => {
             </motion.div>
 
             {/* Enhanced Card 2 */}
-            <motion.div 
+            <motion.div
               className="success-card bg-white p-9 rounded-3xl shadow-lg hover:shadow-2xl transition transform duration-300 relative"
-              whileHover={{ 
-                y: -10, 
+              whileHover={{
+                y: -10,
                 scale: 1.05,
                 rotateY: 5,
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
               }}
               whileTap={{ scale: 0.98 }}
             >
@@ -596,7 +844,7 @@ const Home = () => {
               >
                 <FaQuoteLeft className="absolute top-5 left-1 text-gray-200 text-3xl" />
               </motion.div>
-              <motion.p 
+              <motion.p
                 className="text-gray-700 mb-6"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -607,7 +855,7 @@ const Home = () => {
                 keep me motivated and stress-free.
               </motion.p>
               <div className="flex items-center mt-4">
-                <motion.div 
+                <motion.div
                   className="flex items-center justify-center w-12 h-12 rounded-full bg-pink-100 text-pink-500 mr-4 text-xl"
                   whileHover={{ rotate: 360, scale: 1.2 }}
                   transition={{ duration: 0.5 }}
@@ -615,7 +863,7 @@ const Home = () => {
                   <FaStar />
                 </motion.div>
                 <div>
-                  <motion.h4 
+                  <motion.h4
                     className="text-lg font-semibold text-gray-800"
                     whileHover={{ color: "#ec4899" }}
                   >
@@ -627,13 +875,13 @@ const Home = () => {
             </motion.div>
 
             {/* Enhanced Card 3 */}
-            <motion.div 
+            <motion.div
               className="success-card bg-white p-9 rounded-3xl shadow-lg hover:shadow-2xl transition transform duration-300 relative"
-              whileHover={{ 
-                y: -10, 
+              whileHover={{
+                y: -10,
                 scale: 1.05,
                 rotateY: 5,
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
               }}
               whileTap={{ scale: 0.98 }}
             >
@@ -645,7 +893,7 @@ const Home = () => {
               >
                 <FaQuoteLeft className="absolute top-5 left-1 text-gray-200 text-3xl" />
               </motion.div>
-              <motion.p 
+              <motion.p
                 className="text-gray-700 mb-6"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -656,7 +904,7 @@ const Home = () => {
                 gives me so much confidence and energy.
               </motion.p>
               <div className="flex items-center mt-4">
-                <motion.div 
+                <motion.div
                   className="flex items-center justify-center w-12 h-12 rounded-full bg-yellow-100 text-yellow-500 mr-4 text-xl"
                   whileHover={{ rotate: 360, scale: 1.2 }}
                   transition={{ duration: 0.5 }}
@@ -664,7 +912,7 @@ const Home = () => {
                   <FaStar />
                 </motion.div>
                 <div>
-                  <motion.h4 
+                  <motion.h4
                     className="text-lg font-semibold text-gray-800"
                     whileHover={{ color: "#f59e0b" }}
                   >
@@ -677,6 +925,111 @@ const Home = () => {
           </div>
         </motion.section>
 
+        {/* Premium CTA Section */}
+        <motion.section
+          className="my-16 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 rounded-3xl p-12 md:p-16 relative overflow-hidden"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          {/* Animated Background Elements */}
+          <motion.div
+            className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full -mr-48 -mt-48"
+            animate={{ y: [0, 30, 0], x: [0, 20, 0] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-0 left-0 w-80 h-80 bg-white opacity-5 rounded-full -ml-40 -mb-40"
+            animate={{ y: [0, -30, 0], x: [0, -20, 0] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          <motion.div
+            className="relative z-10 max-w-3xl mx-auto text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <motion.h2
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Ready to Transform Your Life?
+            </motion.h2>
+
+            <motion.p
+              className="text-lg text-white/85 mb-8 leading-relaxed"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              Start your journey today. Join thousands of people who are
+              building better habits and achieving their goals through
+              consistency and discipline.
+            </motion.p>
+
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <motion.button
+                className="bg-white text-blue-600 font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-xl flex items-center gap-2 group"
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
+                }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => navigate("/browsePublic")}
+              >
+                Get Started Free
+                <motion.span
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <FaArrowRight className="group-hover:translate-x-1 transition" />
+                </motion.span>
+              </motion.button>
+
+              <motion.p
+                className="text-white/90 text-sm"
+                animate={{ opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                No credit card required
+              </motion.p>
+            </motion.div>
+
+            <motion.div
+              className="mt-10 pt-10 border-t border-white/20 flex justify-center gap-8"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <motion.div className="text-center" whileHover={{ scale: 1.1 }}>
+                <div className="text-2xl font-bold text-white">24/7</div>
+                <div className="text-white/75 text-sm">Support</div>
+              </motion.div>
+              <motion.div className="text-center" whileHover={{ scale: 1.1 }}>
+                <div className="text-2xl font-bold text-white">100%</div>
+                <div className="text-white/75 text-sm">Free Trial</div>
+              </motion.div>
+              <motion.div className="text-center" whileHover={{ scale: 1.1 }}>
+                <div className="text-2xl font-bold text-white">∞</div>
+                <div className="text-white/75 text-sm">Unlimited Habits</div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </motion.section>
       </Container>
     </>
   );
